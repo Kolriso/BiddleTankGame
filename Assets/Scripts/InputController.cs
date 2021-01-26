@@ -61,7 +61,7 @@ public class InputController : MonoBehaviour
                 break;
 
             default:
-                Debug.LogError("[InputController] Input scheme not implemented.")
+                Debug.LogError("[InputController] Input scheme not implemented.");
                 
                 break;
         }

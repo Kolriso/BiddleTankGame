@@ -18,13 +18,13 @@ public class SampleTimerC : MonoBehaviour
         timeRemaining -= Time.deltaTime;
         if (timeRemaining <= 0f)
         {
-            Debug.Log("The timer has ended")
+            Debug.Log("The timer has ended");
             ResetTimer();
         }
     }
 
     void ResetTimer()
     {
-        timeReamining = timeToWait;
+        timeRemaining = timeToWait;
     }
 }

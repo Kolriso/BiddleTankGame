@@ -18,7 +18,7 @@ public class SampleTimerB : MonoBehaviour
     {
         if (previousEvent < (Time.time - timeToWait))
         {
-            Debug.Log("The timer has ended")
+            Debug.Log("The timer has ended");
             ResetTimer();
         }
     }
