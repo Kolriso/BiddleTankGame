@@ -10,5 +10,6 @@ public class Attack : MonoBehaviour
     public Attack(GameObject Attacker, int Damage)
     {
         attackDamage = Damage;
+        attacker = Attacker;
     }
 }

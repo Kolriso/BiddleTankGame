@@ -15,12 +15,14 @@ public class Health : MonoBehaviour
         // check to see if we died
         if (currentHealth <= 0)
         {
+            PointScore.pointScore += 5;
+            PointScore.enemyPointScore += 5;
             Die();
         }
     }
 
     private void Die()
     {
-        throw new NotImplementedException();
+        Destroy(this.gameObject);
     }
 }
