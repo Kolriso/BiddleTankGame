@@ -12,6 +12,9 @@ public class AIController : MonoBehaviour
     // We need a way to keep track of the current waypoint.
     private int currentWaypoint = 1;
     public float closeEnough = 1.0f;
+    public enum LoopType { Stop, Loop, PingPong };
+    public LoopType loopType = LoopType.Stop;
+    private bool isLoopingForward = true;
 
     private TankData data;
     private TankMotor motor;
@@ -35,16 +38,79 @@ public class AIController : MonoBehaviour
         {
             // Do nothing!
         }
+        
         // If we are facing the waypoint, move towards it.
         else
         {
             // Move forward.
             motor.Move(data.moveSpeed);
         }
+        
         // If we've arrived at our waypoint, then go to the next one.
-        if (Vector3.SqrMagnitude(transform.position - waypoints[currentWaypoint].transform.position) <= (closeEnough * closeEnough))
+        if (loopType == LoopType.Stop)
         {
-            currentWaypoint++;
+            if (Vector3.SqrMagnitude(transform.position - waypoints[currentWaypoint].transform.position) <= (closeEnough * closeEnough))
+            {
+                if (currentWaypoint < (waypoints.Length - 1))
+                {
+                    currentWaypoint++;
+                }
+            }
+                
+        }
+
+        else if (loopType == LoopType.Loop)
+        {
+            if (Vector3.SqrMagnitude(transform.position - waypoints[currentWaypoint].transform.position) <= (closeEnough * closeEnough))
+            {
+                if (currentWaypoint < (waypoints.Length - 1))
+                {
+                    currentWaypoint++;
+                }
+
+                else
+                {
+                    currentWaypoint = 0;
+                }
+            }
+        }
+        else if (loopType == LoopType.PingPong)
+        {
+            if (isLoopingForward)
+            {
+                if (Vector3.SqrMagnitude(transform.position - waypoints[currentWaypoint].transform.position) <= (closeEnough * closeEnough))
+                {
+                    if (currentWaypoint < (waypoints.Length - 1))
+                    {
+                        currentWaypoint++;
+                    }
+
+                    else
+                    {
+                        isLoopingForward = false;
+                    }
+                }
+            }
+            else
+            {
+                if (Vector3.SqrMagnitude(transform.position - waypoints[currentWaypoint].transform.position) <= (closeEnough * closeEnough))
+                {
+                    if (currentWaypoint > 0)
+                    {
+                        currentWaypoint--;
+                    }
+
+                    else
+                    {
+                        isLoopingForward = true;
+                    }
+                }
+            }
+        }
+
+        else
+        {
+            Debug.LogWarning("[AIController] Unexpected LoopType");
         }
     }
 }

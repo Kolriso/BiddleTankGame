@@ -54,7 +54,9 @@ public class TankMotor : MonoBehaviour
 
     public bool RotateTowards(Vector3 target, float rotateSpeed)
     {
-        Vector3 vectorToTarget = target - transform.position;
+        Vector3 adjustedTarget = new Vector3(target.x, transform.position.y, target.z);
+        Vector3 vectorToTarget = adjustedTarget - transform.position;
+       // Vector3 vectorToTarget = target - transform.position;
         Quaternion targetRotation = Quaternion.LookRotation(vectorToTarget);
         
         if (targetRotation == transform.rotation)
