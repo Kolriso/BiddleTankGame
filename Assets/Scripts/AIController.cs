@@ -11,7 +11,7 @@ public class AIController : MonoBehaviour
     public GameObject[] waypoints;
     // We need a way to keep track of the current waypoint.
     private int currentWaypoint = 1;
-    public float closeEnough = 1.0f;
+    public float closeEnough = 4.0f;
     public enum LoopType { Stop, Loop, PingPong };
     public LoopType loopType = LoopType.Stop;
     private bool isLoopingForward = true;
@@ -19,6 +19,14 @@ public class AIController : MonoBehaviour
     private TankData data;
     private TankMotor motor;
     private TankShooter shooter;
+
+    public bool IsNotAtFinalWaypointProperty
+    {
+        get
+        {
+            return currentWaypoint < (waypoints.Length - 1);
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
