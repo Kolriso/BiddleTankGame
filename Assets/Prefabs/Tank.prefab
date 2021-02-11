@@ -351,7 +351,7 @@ GameObject:
   - component: {fileID: 2471680111970548401}
   m_Layer: 0
   m_Name: Tank
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -406,7 +406,6 @@ MonoBehaviour:
   moveSpeed: 3
   turnSpeed: 30
   cannonBallDamage: 1
-  playerPoints: 0
 --- !u!114 &4425502055642904112
 MonoBehaviour:
   m_ObjectHideFlags: 0

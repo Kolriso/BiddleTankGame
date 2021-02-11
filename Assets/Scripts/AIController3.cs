@@ -20,7 +20,7 @@ public class AIController3 : MonoBehaviour
     public AvoidenceStage avoidenceStage = AvoidenceStage.NotAvoiding;
 
     public float avoidenceTime = 2.0f;
-    private float exitTime = 2.0f;
+    private float exitTime;
     public float closeEnough = 4.0f;
 
     // Start is called before the first frame update
@@ -74,17 +74,37 @@ public class AIController3 : MonoBehaviour
     {
         if (avoidenceStage == AvoidenceStage.ObstacleDetected)
         {
-            avoidenceStage = AvoidenceStage.AvoidingObstacle
-            exitTime = avoidenceTime;
+            // Rotate left
+            motor.Rotate(-1 * data.turnSpeed);
+            
+            // If I can now move forward, move to stage 2!
+            if (CanMove(data.moveSpeed))
+            {
+                avoidenceStage = AvoidenceStage.AvoidingObstacle;
+
+                // Set the number of seconds we will stay in Stage 2
+                exitTime = avoidenceTime; 
+            }
         }
         else if (avoidenceStage == AvoidenceStage.AvoidingObstacle)
         {
-            exitTime -= Time.deltaTime;
-            motor.Move(data.moveSpeed);
-        }
-        else
-        {
-            avoidenceStage = AvoidenceStage.ObstacleDetected;
+            // If we can move forward, do so
+            if (CanMove(data.moveSpeed))
+            {
+                // Subtract from our timer and move
+                exitTime -= Time.deltaTime;
+                motor.Move(data.moveSpeed);
+
+                // If we have moved long enough, return to chase mode
+                if (exitTime <= 0)
+                {
+                    avoidenceStage = AvoidenceStage.NotAvoiding;
+                }
+            }
+            else
+            {
+                avoidenceStage = AvoidenceStage.ObstacleDetected;
+            }
         }
     }
 
