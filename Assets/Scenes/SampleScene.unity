@@ -303,13 +303,30 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 186548922}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: efddcdc75c5ef6a4883c3131f0b0484e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   fleeDistance: 1
+  closeEnough: 4
   attackState: 0
+--- !u!114 &186548924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 186548922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d441ec8fe8cc6741a6f2e05f9223f77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackState: 0
+  avoidenceStage: 0
+  avoidenceTime: 2
+  closeEnough: 4
 --- !u!1001 &285056053
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1206,7 +1223,6 @@ GameObject:
   - component: {fileID: 1673656007}
   - component: {fileID: 1673656006}
   - component: {fileID: 1673656008}
-  - component: {fileID: 1673656009}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1228,7 +1244,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 1635724217}
   Players:
-  - {fileID: 0}
+  - {fileID: 1635724217}
   - {fileID: 0}
 --- !u!4 &1673656007
 Transform:
@@ -1254,18 +1270,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 384fc0c4145d8c846bb9f0b8331770fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1673656009
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1673656005}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a54ab8c459e0a1d488310ad77ae5f0e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1806999892
@@ -1653,6 +1657,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tank
+      objectReference: {fileID: 0}
+    - target: {fileID: 789671634103489497, guid: 0771a49fe291d9945b8149fae84f9f36,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 789671634103914489, guid: 0771a49fe291d9945b8149fae84f9f36,
         type: 3}

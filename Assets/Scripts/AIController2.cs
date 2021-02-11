@@ -31,6 +31,8 @@ public class AIController2 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        shooter.Shoot();
+
         if (attackState == AttackState.Chase)
         {
             // Do state behavior
