@@ -27,6 +27,15 @@ public class FiniteStateMachine : MonoBehaviour
 
     public float stateExitTime;
 
+    // TODO: We need a way to keep track of all the waypoints.
+    public GameObject[] waypoints;
+    // We need a way to keep track of the current waypoint.
+    private int currentWaypoint = 1;
+    public float closeEnough = 4.0f;
+    public enum LoopType { Stop, Loop, PingPong };
+    public LoopType loopType = LoopType.Stop;
+    private bool isLoopingForward = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +45,8 @@ public class FiniteStateMachine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        shooter.Shoot();
+
         switch (personality)
         {
             case EnemyPersonality.Guard:
@@ -53,6 +64,20 @@ public class FiniteStateMachine : MonoBehaviour
             default:
                 Debug.LogWarning("[FiniteStateMachine] Unimplemented finite state machine");
                 break;
+        }
+
+        // We need to see if we are already at the waypoint.
+        // If we are not at the waypoint, turn to face it.
+        if (motor.RotateTowards(waypoints[currentWaypoint].transform.position, data.turnSpeed))
+        {
+            // Do nothing!
+        }
+
+        // If we are facing the waypoint, move towards it.
+        else
+        {
+            // Move forward.
+            motor.Move(data.moveSpeed);
         }
     }
 
@@ -174,9 +199,9 @@ public class FiniteStateMachine : MonoBehaviour
         {
             case AIState.Chase:
                 // Do behaviors
-                Chase();
+                Chase(GameManager.Instance.Players[0]);
                 // Check for transitions
-                if (health < maxHealth * 0.5)
+                if (currentHealth < maxHealth * 0.5)
                 {
                     ChangeState(AIState.Rest);
                 }
@@ -189,7 +214,7 @@ public class FiniteStateMachine : MonoBehaviour
                 // Do behaviors
                 ChaseAndFire();
                 // Check for transitions
-                if (health < maxHealth * 0.5)
+                if (currentHealth < maxHealth * 0.5)
                 {
                     ChangeState(AIState.Rest);
                 }
@@ -202,7 +227,7 @@ public class FiniteStateMachine : MonoBehaviour
                 // Do behaviors
                 Rest();
                 // Check for transitions
-                if (health == maxHealth)
+                if (currentHealth == maxHealth)
                 {
                     ChangeState(AIState.Chase);
                 }
@@ -215,9 +240,26 @@ public class FiniteStateMachine : MonoBehaviour
 
     private void WandererFSM()
     {
-        // TODO: Write own behavior
-    }
+        if (loopType == LoopType.PingPong)
+        {
+            if (isLoopingForward)
+            {
+                if (Vector3.SqrMagnitude(transform.position - waypoints[currentWaypoint].transform.position) <= (closeEnough * closeEnough))
+                {
+                    if (currentWaypoint < (waypoints.Length - 1))
+                    {
+                        currentWaypoint++;
+                    }
 
+                    else
+                    {
+                        isLoopingForward = false;
+                    }
+                }
+            }
+            // TODO: Write own behavior
+        }
+    }
     void ChangeState(AIState newState)
     {
         aiState = newState;
