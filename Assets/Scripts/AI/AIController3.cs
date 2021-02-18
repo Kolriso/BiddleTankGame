@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(TankData))]
 [RequireComponent(typeof(TankMotor))]
 [RequireComponent(typeof(TankShooter))]
+[RequireComponent(typeof(Health))]
 
 public class AIController3 : MonoBehaviour
 {
