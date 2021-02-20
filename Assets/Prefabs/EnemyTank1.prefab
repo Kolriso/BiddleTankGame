@@ -266,7 +266,8 @@ GameObject:
   - component: {fileID: 5723319730611868659}
   - component: {fileID: 4595160886740858460}
   - component: {fileID: 1670399973}
-  - component: {fileID: 1670399972}
+  - component: {fileID: 186548933}
+  - component: {fileID: 3158867229751577503}
   m_Layer: 0
   m_Name: EnemyTank1
   m_TagString: Untagged
@@ -366,7 +367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf2a3793e797cae4bad7613e09fcbbc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1670399972
+--- !u!114 &186548933
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -375,9 +376,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 789671634103489497}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b97f2266c5b865f4fa8ec9ffb4918537, type: 3}
+  m_Script: {fileID: 11500000, guid: c74c0090d427f9c4b8ac493c2636c800, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hearingDistance: 10
+  fieldOfView: 45
+--- !u!114 &3158867229751577503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 789671634103489497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2799ed3873f9de498f5a5c441049bf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  avoidenceStage: 0
+  personality: 0
+  aiState: 0
+  currentHealth: 0
+  maxHealth: 0
+  stateExitTime: 0
+  waypoints: []
+  closeEnough: 4
+  loopType: 0
+  avoidenceTime: 2
 --- !u!1 &789671634103489499
 GameObject:
   m_ObjectHideFlags: 0

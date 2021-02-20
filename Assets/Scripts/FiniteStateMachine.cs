@@ -6,12 +6,14 @@ using UnityEngine;
 [RequireComponent(typeof(TankData))]
 [RequireComponent(typeof(TankMotor))]
 [RequireComponent(typeof(TankShooter))]
+[RequireComponent(typeof(AISenses))]
 
 public class FiniteStateMachine : MonoBehaviour
 {
     private TankData data;
     private TankMotor motor;
     private TankShooter shooter;
+    private AISenses CanSee;
 
     public enum AvoidenceStage { NotAvoiding, ObstacleDetected, AvoidingObstacle };
     public AvoidenceStage avoidenceStage = AvoidenceStage.NotAvoiding;
@@ -36,6 +38,9 @@ public class FiniteStateMachine : MonoBehaviour
     public LoopType loopType = LoopType.Stop;
     private bool isLoopingForward = true;
 
+    public float avoidenceTime = 2.0f;
+    private float exitTime;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -45,8 +50,6 @@ public class FiniteStateMachine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        shooter.Shoot();
-
         switch (personality)
         {
             case EnemyPersonality.Guard:
@@ -100,7 +103,7 @@ public class FiniteStateMachine : MonoBehaviour
                 break;
             case AIState.ChaseAndFire:
                 // Do behaviors
-                ChaseAndFire();
+                ChaseAndFire(GameManager.Instance.Players[0]);
                 // Check for transitions
                 if (currentHealth < maxHealth * 0.5)
                 {
@@ -128,7 +131,7 @@ public class FiniteStateMachine : MonoBehaviour
                 // Do behaviors
                 Flee();
                 // Check for transitions
-                if ()
+                if (avoidenceStage == AvoidenceStage.ObstacleDetected)
                 {
                     ChangeState(AIState.CheckForFlee);
                 }
@@ -173,7 +176,7 @@ public class FiniteStateMachine : MonoBehaviour
                 // Do behaviors
                 Flee();
                 // Check for transitions
-                if ()
+                if (avoidenceStage == AvoidenceStage.ObstacleDetected)
                 {
                     ChangeState(AIState.CheckForFlee);
                 }
@@ -212,7 +215,7 @@ public class FiniteStateMachine : MonoBehaviour
                 break;
             case AIState.ChaseAndFire:
                 // Do behaviors
-                ChaseAndFire();
+                ChaseAndFire(GameManager.Instance.Players[0]);
                 // Check for transitions
                 if (currentHealth < maxHealth * 0.5)
                 {
@@ -302,9 +305,13 @@ public class FiniteStateMachine : MonoBehaviour
         }
     }
 
-    private void ChaseAndFire()
+    private void ChaseAndFire(GameObject target)
     {
-        // TODO: Write this method
+        float attackRange = 20.0f;
+        if (Vector3.Distance(transform.position, target.transform.position) < attackRange)
+        {
+            shooter.Shoot();
+        }
     }
 
     private bool PlayerIsInRange()
@@ -319,7 +326,40 @@ public class FiniteStateMachine : MonoBehaviour
 
     private void Flee()
     {
-        // TODO: Write this method
+        if (avoidenceStage == AvoidenceStage.ObstacleDetected)
+        {
+            // Rotate left
+            motor.Rotate(-1 * data.turnSpeed);
+
+            // If I can now move forward, move to stage 2!
+            if (CanMove(data.moveSpeed))
+            {
+                avoidenceStage = AvoidenceStage.AvoidingObstacle;
+
+                // Set the number of seconds we will stay in Stage 2
+                exitTime = avoidenceTime;
+            }
+        }
+        else if (avoidenceStage == AvoidenceStage.AvoidingObstacle)
+        {
+            // If we can move forward, do so
+            if (CanMove(data.moveSpeed))
+            {
+                // Subtract from our timer and move
+                exitTime -= Time.deltaTime;
+                motor.Move(data.moveSpeed);
+
+                // If we have moved long enough, return to chase mode
+                if (exitTime <= 0)
+                {
+                    avoidenceStage = AvoidenceStage.NotAvoiding;
+                }
+            }
+            else
+            {
+                avoidenceStage = AvoidenceStage.ObstacleDetected;
+            }
+        }
     }
 
     private void CheckForFlee()
