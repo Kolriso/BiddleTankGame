@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AISenses : MonoBehaviour
 {
-    public float hearingDistance = 10.0f;
+    public float hearingDistance = 0.0f;
     public float fieldOfView = 45.0f;
 
     // Start is called before the first frame update

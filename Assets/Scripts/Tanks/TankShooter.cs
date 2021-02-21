@@ -18,14 +18,16 @@ public class TankShooter : MonoBehaviour
     void Start()
     {
         data = GetComponent<TankData>();
-        nextEventTime = Time.time + timerDelay;
+        //nextEventTime = Time.time + timerDelay;
     }
-        void update()
+    void Update()
     {
-        if (Time.time >= nextEventTime)
+        nextEventTime -= Time.deltaTime;
+
+        if (nextEventTime <= 0)
         {
             Debug.Log("Fire Cannon!");
-            nextEventTime = Time.time + timerDelay;
+            nextEventTime = 0;
         }
     }
 
@@ -35,8 +37,9 @@ public class TankShooter : MonoBehaviour
 
 
         // Instantiate the cannon ball.
-        if (timerDelay <= nextEventTime)
+        if (nextEventTime <= 0)
         {
+            nextEventTime += timerDelay + Time.deltaTime;
            Rigidbody clone = Instantiate(cannonBallPrefab, firePoint.transform);
 
             // Propel the cannon ball forward with Rigidbody.AddForce()

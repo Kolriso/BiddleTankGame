@@ -29,6 +29,8 @@ public class FiniteStateMachine : MonoBehaviour
 
     public float stateExitTime;
 
+    public float fleeDistance = 1.0f;
+
     // TODO: We need a way to keep track of all the waypoints.
     public GameObject[] waypoints;
     // We need a way to keep track of the current waypoint.
@@ -44,7 +46,10 @@ public class FiniteStateMachine : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        motor = GetComponent<TankMotor>();
+        data = GetComponent<TankData>();
+        shooter = GetComponent<TankShooter>();
+        CanSee = GetComponent<AISenses>();
     }
 
     // Update is called once per frame
@@ -67,20 +72,6 @@ public class FiniteStateMachine : MonoBehaviour
             default:
                 Debug.LogWarning("[FiniteStateMachine] Unimplemented finite state machine");
                 break;
-        }
-
-        // We need to see if we are already at the waypoint.
-        // If we are not at the waypoint, turn to face it.
-        if (motor.RotateTowards(waypoints[currentWaypoint].transform.position, data.turnSpeed))
-        {
-            // Do nothing!
-        }
-
-        // If we are facing the waypoint, move towards it.
-        else
-        {
-            // Move forward.
-            motor.Move(data.moveSpeed);
         }
     }
 
@@ -116,7 +107,7 @@ public class FiniteStateMachine : MonoBehaviour
                 break;
             case AIState.CheckForFlee:
                 // Do behaviors
-                CheckForFlee();
+                CheckForFlee(GameManager.Instance.Players[0]);
                 // Check for transitions
                 if (PlayerIsInRange())
                 {
@@ -129,7 +120,7 @@ public class FiniteStateMachine : MonoBehaviour
                 break;
             case AIState.Flee:
                 // Do behaviors
-                Flee();
+                Flee(GameManager.Instance.Players[0]);
                 // Check for transitions
                 if (avoidenceStage == AvoidenceStage.ObstacleDetected)
                 {
@@ -161,7 +152,7 @@ public class FiniteStateMachine : MonoBehaviour
         {
             case AIState.CheckForFlee:
                 // Do behaviors
-                CheckForFlee();
+                CheckForFlee(GameManager.Instance.Players[0]);
                 // Check for transitions
                 if (PlayerIsInRange())
                 {
@@ -174,9 +165,9 @@ public class FiniteStateMachine : MonoBehaviour
                 break;
             case AIState.Flee:
                 // Do behaviors
-                Flee();
+                Flee(GameManager.Instance.Players[0]);
                 // Check for transitions
-                if (avoidenceStage == AvoidenceStage.ObstacleDetected)
+                if (PlayerIsInRange())
                 {
                     ChangeState(AIState.CheckForFlee);
                 }
@@ -243,7 +234,49 @@ public class FiniteStateMachine : MonoBehaviour
 
     private void WandererFSM()
     {
-        if (loopType == LoopType.PingPong)
+        // We need to see if we are already at the waypoint.
+        // If we are not at the waypoint, turn to face it.
+        if (motor.RotateTowards(waypoints[currentWaypoint].transform.position, data.turnSpeed))
+        {
+            // Do nothing!
+        }
+
+        // If we are facing the waypoint, move towards it.
+        else
+        {
+            // Move forward.
+            motor.Move(data.moveSpeed);
+        }
+
+        // If we've arrived at our waypoint, then go to the next one.
+        if (loopType == LoopType.Stop)
+        {
+            if (Vector3.SqrMagnitude(transform.position - waypoints[currentWaypoint].transform.position) <= (closeEnough * closeEnough))
+            {
+                if (currentWaypoint < (waypoints.Length - 1))
+                {
+                    currentWaypoint++;
+                }
+            }
+
+        }
+
+        else if (loopType == LoopType.Loop)
+        {
+            if (Vector3.SqrMagnitude(transform.position - waypoints[currentWaypoint].transform.position) <= (closeEnough * closeEnough))
+            {
+                if (currentWaypoint < (waypoints.Length - 1))
+                {
+                    currentWaypoint++;
+                }
+
+                else
+                {
+                    currentWaypoint = 0;
+                }
+            }
+        }
+        else if (loopType == LoopType.PingPong)
         {
             if (isLoopingForward)
             {
@@ -324,47 +357,58 @@ public class FiniteStateMachine : MonoBehaviour
         // TODO: Write this method
     }
 
-    private void Flee()
+    private void Flee(GameObject target)
     {
-        if (avoidenceStage == AvoidenceStage.ObstacleDetected)
+        // Get the vector to our target
+        Vector3 vectorToTarget = target.transform.position - transform.position;
+
+        // Get the vector away from our target
+        Vector3 vectorAwayFromTarget = -1 * vectorToTarget;
+
+        // Normalize our vector away from our target
+        vectorAwayFromTarget.Normalize();
+
+        // Adjust for flee distance
+        vectorAwayFromTarget *= fleeDistance;
+
+        // Set our flee position
+        Vector3 fleePosition = vectorAwayFromTarget + transform.position;
+
+        if (motor.RotateTowards(vectorAwayFromTarget.normalized, data.turnSpeed))
         {
-            // Rotate left
-            motor.Rotate(-1 * data.turnSpeed);
-
-            // If I can now move forward, move to stage 2!
-            if (CanMove(data.moveSpeed))
-            {
-                avoidenceStage = AvoidenceStage.AvoidingObstacle;
-
-                // Set the number of seconds we will stay in Stage 2
-                exitTime = avoidenceTime;
-            }
+            // Do nothing
         }
-        else if (avoidenceStage == AvoidenceStage.AvoidingObstacle)
+        else
         {
-            // If we can move forward, do so
-            if (CanMove(data.moveSpeed))
-            {
-                // Subtract from our timer and move
-                exitTime -= Time.deltaTime;
-                motor.Move(data.moveSpeed);
-
-                // If we have moved long enough, return to chase mode
-                if (exitTime <= 0)
-                {
-                    avoidenceStage = AvoidenceStage.NotAvoiding;
-                }
-            }
-            else
-            {
-                avoidenceStage = AvoidenceStage.ObstacleDetected;
-            }
+            motor.Move(data.moveSpeed);
         }
     }
 
-    private void CheckForFlee()
+    private void CheckForFlee(GameObject target)
     {
-        // TODO: Write this method
+        // Get the vector to our target
+        Vector3 vectorToTarget = target.transform.position - transform.position;
+
+        // Get the vector away from our target
+        Vector3 vectorAwayFromTarget = -1 * vectorToTarget;
+
+        // Normalize our vector away from our target
+        vectorAwayFromTarget.Normalize();
+
+        // Adjust for flee distance
+        vectorAwayFromTarget *= fleeDistance;
+
+        // Set our flee position
+        Vector3 fleePosition = vectorAwayFromTarget + transform.position;
+
+        if (motor.RotateTowards(vectorAwayFromTarget.normalized, data.turnSpeed))
+        {
+            // Do nothing
+        }
+        else
+        {
+            motor.Move(data.moveSpeed);
+        }
     }
 
 }

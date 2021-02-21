@@ -10,10 +10,13 @@ public class CannonBall : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Attack attackData = new Attack(attacker, attackDamage);
-        collision.gameObject.SendMessage("TakeDamage", attackData, SendMessageOptions.RequireReceiver);
-        // Destroy our cannon ball when it runs into another object.
-        Destroy(this.gameObject);
+        if (collision.gameObject.tag != "Bullet")
+        {
+            Attack attackData = new Attack(attacker, attackDamage);
+            collision.gameObject.SendMessage("TakeDamage", attackData, SendMessageOptions.RequireReceiver);
+            // Destroy our cannon ball when it runs into another object.
+            Destroy(this.gameObject);
+        }
     }
 
 }
