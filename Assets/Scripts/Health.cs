@@ -3,11 +3,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Health : MonoBehaviour
+[System.Serializable]
+public class Health
 {
-    public float currentHealth = 5.0f;
-    public float maxHealth = 5.0f;
+    public int currentHealth = 5;
+    public int maxHealth = 5;
 
+    public Health()
+    {
+        
+    }
+
+    public Health(int MaxHealth)
+    {
+        maxHealth = MaxHealth;
+        currentHealth = maxHealth;
+    }
     public void TakeDamage(Attack attackData)
     {
         currentHealth -= attackData.attackDamage;
@@ -16,7 +27,7 @@ public class Health : MonoBehaviour
         if (currentHealth <= 0)
         {
             PointScore.pointScore += 5;
-            PointScore.enemyPointScore += 5;
+            // PointScore.enemyPointScore += 5;
             Die();
         }
     }

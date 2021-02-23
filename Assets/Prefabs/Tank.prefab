@@ -349,6 +349,7 @@ GameObject:
   - component: {fileID: 4425502055642904112}
   - component: {fileID: 5723319730611868659}
   - component: {fileID: 2471680111970548401}
+  - component: {fileID: 1694519689886641992}
   m_Layer: 0
   m_Name: Tank
   m_TagString: Player
@@ -433,7 +434,7 @@ MonoBehaviour:
   firePoint: {fileID: 789671633439929035}
   cannonBallPrefab: {fileID: 754198672846036209, guid: 36348d8bcf752a946974cb5918befec5,
     type: 3}
-  timerDelay: 0.05
+  timerDelay: 0.25
   thrust: 10
 --- !u!114 &2471680111970548401
 MonoBehaviour:
@@ -448,6 +449,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputScheme: 0
+--- !u!114 &1694519689886641992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 789671634103489497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9591a21fd646a8e499852367c516ee40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &789671634103489499
 GameObject:
   m_ObjectHideFlags: 0

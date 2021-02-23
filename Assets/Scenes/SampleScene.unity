@@ -297,14 +297,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 186548933, guid: 6d88d718228265043b8078410937cecf, type: 3}
-      propertyPath: fieldOfView
-      value: 45
-      objectReference: {fileID: 0}
-    - target: {fileID: 186548933, guid: 6d88d718228265043b8078410937cecf, type: 3}
-      propertyPath: hearingDistance
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 789671634103489497, guid: 6d88d718228265043b8078410937cecf,
         type: 3}
       propertyPath: m_Name
@@ -367,36 +359,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3158867229751577503, guid: 6d88d718228265043b8078410937cecf,
         type: 3}
-      propertyPath: loopType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3158867229751577503, guid: 6d88d718228265043b8078410937cecf,
-        type: 3}
-      propertyPath: maxHealth
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3158867229751577503, guid: 6d88d718228265043b8078410937cecf,
-        type: 3}
-      propertyPath: personality
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3158867229751577503, guid: 6d88d718228265043b8078410937cecf,
-        type: 3}
-      propertyPath: currentHealth
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3158867229751577503, guid: 6d88d718228265043b8078410937cecf,
-        type: 3}
-      propertyPath: stateExitTime
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3158867229751577503, guid: 6d88d718228265043b8078410937cecf,
-        type: 3}
-      propertyPath: waypoints.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3158867229751577503, guid: 6d88d718228265043b8078410937cecf,
-        type: 3}
       propertyPath: waypoints.Array.data[0]
       value: 
       objectReference: {fileID: 346790073}
@@ -415,11 +377,6 @@ PrefabInstance:
       propertyPath: waypoints.Array.data[3]
       value: 
       objectReference: {fileID: 779346463}
-    - target: {fileID: 5723319730611868659, guid: 6d88d718228265043b8078410937cecf,
-        type: 3}
-      propertyPath: timerDelay
-      value: 0.25
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d88d718228265043b8078410937cecf, type: 3}
 --- !u!1001 &295607749
@@ -2106,11 +2063,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5723319730611868659, guid: 0771a49fe291d9945b8149fae84f9f36,
-        type: 3}
-      propertyPath: timerDelay
-      value: 0.25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0771a49fe291d9945b8149fae84f9f36, type: 3}

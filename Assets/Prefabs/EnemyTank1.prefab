@@ -268,6 +268,7 @@ GameObject:
   - component: {fileID: 1670399973}
   - component: {fileID: 186548933}
   - component: {fileID: 3158867229751577503}
+  - component: {fileID: 3895154132355652193}
   m_Layer: 0
   m_Name: EnemyTank1
   m_TagString: Untagged
@@ -394,15 +395,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   avoidenceStage: 0
-  personality: 0
+  personality: 3
   aiState: 0
-  currentHealth: 0
-  maxHealth: 0
-  stateExitTime: 0
-  waypoints: []
+  currentHealth: 5
+  maxHealth: 5
+  stateExitTime: 2
+  fleeDistance: 1
+  waypoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   closeEnough: 4
-  loopType: 0
+  loopType: 1
   avoidenceTime: 2
+--- !u!114 &3895154132355652193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 789671634103489497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9591a21fd646a8e499852367c516ee40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &789671634103489499
 GameObject:
   m_ObjectHideFlags: 0
