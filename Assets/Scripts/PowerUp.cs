@@ -19,7 +19,7 @@ public class PowerUp
         targetData.moveSpeed += speedModifier;
         targetData.fireRate += fireRateModifier;
         targetHealth.maxHealth += maxHealthModifier;
-        targetHealth.currentHealth += healthModifier;
+        targetHealth.CurrentHealth += healthModifier;
     }
 
     public void OnDeactivate(TankData targetData, Health targetHealth)
@@ -28,6 +28,6 @@ public class PowerUp
         targetData.fireRate -= fireRateModifier;
         // target.tankHealth.maxHealth -= maxHealthModifier;
         targetHealth.maxHealth -= maxHealthModifier;
-        targetHealth.currentHealth -= healthModifier;
+        targetHealth.CurrentHealth -= healthModifier;
     }
 }
