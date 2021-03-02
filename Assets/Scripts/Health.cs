@@ -46,6 +46,6 @@ public class Health
 
     private void Die()
     {
-        Destroy(gameObject);
+       // Destroy(gameObject);
     }
 }

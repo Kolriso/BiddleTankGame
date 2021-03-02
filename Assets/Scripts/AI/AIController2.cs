@@ -38,7 +38,7 @@ public class AIController2 : MonoBehaviour
             // Do state behavior
             Chase(GameManager.Instance.Players[0]);
             // Check for transitions
-            if (health.currentHealth < 3)
+            if (health.CurrentHealth < 3)
             {
                 attackState = AttackState.Flee;
             }
@@ -48,7 +48,7 @@ public class AIController2 : MonoBehaviour
             // Do state behavior
             Flee(GameManager.Instance.Players[0]);
             // Check for transitions
-            if (health.currentHealth >= 3)
+            if (health.CurrentHealth >= 3)
             {
                 attackState = AttackState.Chase;
             }
