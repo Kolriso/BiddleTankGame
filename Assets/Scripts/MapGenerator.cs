@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +8,8 @@ public class MapGenerator : MonoBehaviour
     public int rows;
     public int columns;
 
+    public int mapSeed;
+
     private float roomWidth = 50.0f;
     private float roomHeight = 50.0f;
 
@@ -14,18 +17,35 @@ public class MapGenerator : MonoBehaviour
 
     private Room[,] grid;
 
+    public enum MapGenerationType { Random, MapOfTheDay, CustomSeed };
+    public MapGenerationType mapType = MapGenerationType.Random;
+
     private void Start()
     {
         GenerateGrid();
+        GameManager.Instance.SpawnEnemies(4);
     }
 
     public GameObject RandomRoomPrefab()
     {
-        return gridPrefabs[Random.Range(0, gridPrefabs.Length)];
+        return gridPrefabs[UnityEngine.Random.Range(0, gridPrefabs.Length)];
     }
 
     public void GenerateGrid()
     {
+        switch (mapType)
+        {
+            case MapGenerationType.Random:
+                mapSeed = DateToInt(DateTime.Now);
+                break;
+            case MapGenerationType.MapOfTheDay:
+                mapSeed = DateToInt(DateTime.Now.Date);
+                break;
+            case MapGenerationType.CustomSeed:
+                // Don't change the seed.
+                break;
+        }
+        UnityEngine.Random.InitState(mapSeed);
         // Clear out the grid - "Which column" is our X, "Which row" is our Y
         grid = new Room[columns, rows];
 
@@ -50,18 +70,13 @@ public class MapGenerator : MonoBehaviour
                     currentRoom.doorSouth.SetActive(false);
                 }
                 // If we are on the first column, open the east door
-                if (column == 0)
-                {
-                    currentRoom.doorEast.SetActive(false);
-                }
-                else if (column == columns - 1)
+                if (column != 0)
                 {
                     currentRoom.doorWest.SetActive(false);
                 }
-                else
+                else if (column != columns - 1)
                 {
                     currentRoom.doorEast.SetActive(false);
-                    currentRoom.doorWest.SetActive(false);
                 }
                 grid[column, row] = currentRoom;
          
@@ -70,5 +85,14 @@ public class MapGenerator : MonoBehaviour
                 temporaryRoom.name = "Room_" + column + "," + row;
             }
         }
+
+        // Spawn in enemies
+       
+        // Spawn in Player(s)
+    }
+    public int DateToInt(DateTime dateToUse)
+    {
+        // Add our date up and return it
+        return dateToUse.Year + dateToUse.Month + dateToUse.Day + dateToUse.Hour + dateToUse.Minute + dateToUse.Second + dateToUse.Millisecond;
     }
 }
