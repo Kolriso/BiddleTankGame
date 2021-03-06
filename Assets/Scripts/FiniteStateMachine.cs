@@ -14,6 +14,7 @@ public class FiniteStateMachine : MonoBehaviour
     private TankMotor motor;
     private TankShooter shooter;
     private AISenses CanSee;
+    private AISenses CanHear;
 
     public enum AvoidenceStage { NotAvoiding, ObstacleDetected, AvoidingObstacle };
     public AvoidenceStage avoidenceStage = AvoidenceStage.NotAvoiding;
@@ -50,11 +51,15 @@ public class FiniteStateMachine : MonoBehaviour
         data = GetComponent<TankData>();
         shooter = GetComponent<TankShooter>();
         CanSee = GetComponent<AISenses>();
+        CanHear = GetComponent<AISenses>();
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
+
         switch (personality)
         {
             case EnemyPersonality.Guard:
@@ -87,10 +92,11 @@ public class FiniteStateMachine : MonoBehaviour
                 {
                     ChangeState(AIState.CheckForFlee);
                 }
-                else if (PlayerIsInRange())
-                {
-                    ChangeState(AIState.ChaseAndFire);
-                }
+                //else if (PlayerIsInRange())
+                //{
+                //    print("I'm in range");
+                //    ChangeState(AIState.ChaseAndFire);
+                //}
                 break;
             case AIState.ChaseAndFire:
                 // Do behaviors
@@ -242,11 +248,10 @@ public class FiniteStateMachine : MonoBehaviour
         }
 
         // If we are facing the waypoint, move towards it.
-        else
-        {
+
             // Move forward.
-            motor.Move(data.moveSpeed);
-        }
+        motor.Move(data.moveSpeed);
+
 
         // If we've arrived at our waypoint, then go to the next one.
         if (loopType == LoopType.Stop)
@@ -349,7 +354,14 @@ public class FiniteStateMachine : MonoBehaviour
 
     private bool PlayerIsInRange()
     {
-        return true;
+        if (CanHear.CanHear(GameManager.Instance.Players[0].gameObject))
+        {
+            return true;
+        } 
+        else
+        {
+            return false;
+        }
     }
 
     private void Rest()

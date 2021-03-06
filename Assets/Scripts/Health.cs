@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Health
+public class Health : MonoBehaviour
 {
     private int currentHealth = 5;
     public int maxHealth = 5;
@@ -46,6 +46,6 @@ public class Health
 
     private void Die()
     {
-       // Destroy(gameObject);
+        Destroy(this.gameObject);
     }
 }

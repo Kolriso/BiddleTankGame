@@ -23,8 +23,8 @@ public class GameManager : Singleton<GameManager>
     {
         for (int enemy = 0; enemy < numberToSpawn; enemy++)
         {
-            EnemySpawnPoints randomSpawnPoint = enemySpawnPoints[Random.Range(0, enemySpawnPoints.Count)];
-            randomSpawnPoint.SpawnRandomEnemy();
+           // EnemySpawnPoints randomSpawnPoint = enemySpawnPoints[Random.Range(0, enemySpawnPoints.Count)];
+           // randomSpawnPoint.SpawnRandomEnemy();
         }
     }
 }

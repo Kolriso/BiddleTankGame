@@ -6,7 +6,7 @@ public class EnemySpawnPoints : MonoBehaviour
 {
     private void Awake()
     {
-        GameManager.Instance.enemySpawnPoints.Add(this);
+        // GameManager.Instance.enemySpawnPoints.Add(this);
     }
 
     private void OnDestroy()
