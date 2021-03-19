@@ -350,6 +350,7 @@ GameObject:
   - component: {fileID: 5723319730611868659}
   - component: {fileID: 2471680111970548401}
   - component: {fileID: 1694519689886641992}
+  - component: {fileID: 3661410493621430973}
   m_Layer: 0
   m_Name: Tank
   m_TagString: Player
@@ -407,6 +408,7 @@ MonoBehaviour:
   moveSpeed: 3
   turnSpeed: 30
   cannonBallDamage: 1
+  fireRate: 2
 --- !u!114 &4425502055642904112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -461,6 +463,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9591a21fd646a8e499852367c516ee40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  powerups: []
+--- !u!114 &3661410493621430973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 789671634103489497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 571208c05b1abf7469a7676cfd29682d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 5
 --- !u!1 &789671634103489499
 GameObject:
   m_ObjectHideFlags: 0
