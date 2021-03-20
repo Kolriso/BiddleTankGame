@@ -504,7 +504,8 @@ MonoBehaviour:
   gridPrefabs:
   - {fileID: 3619252817814111386, guid: ab8b165f7df3e5849b89c7e4da3bee5d, type: 3}
   - {fileID: 3869447292965202946, guid: 6d124c39afda07a469172b7dc0051151, type: 3}
-  mapType: 0
+  - {fileID: 4505115389434649227, guid: 011a71ed8c798654ea14a152eaa4738d, type: 3}
+  mapType: 1
 --- !u!4 &682656984
 Transform:
   m_ObjectHideFlags: 0
