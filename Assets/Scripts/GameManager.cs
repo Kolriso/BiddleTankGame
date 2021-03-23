@@ -14,6 +14,8 @@ public class GameManager : Singleton<GameManager>
 
     public List<EnemySpawnPoints> enemySpawnPoints = new List<EnemySpawnPoints>();
 
+    public int playerScore = 0;
+
     protected override void Awake()
     {
         base.Awake();
