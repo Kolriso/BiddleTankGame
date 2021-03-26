@@ -1336,6 +1336,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6851874581801182212, guid: f423f0f5fcdadb646bd55a57984ac388,
         type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6851874581801182212, guid: f423f0f5fcdadb646bd55a57984ac388,
+        type: 3}
       propertyPath: playerPrefab
       value: 
       objectReference: {fileID: 1635724217}
@@ -1418,6 +1423,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GameManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 6851874581801182215, guid: f423f0f5fcdadb646bd55a57984ac388,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6851874581801182218, guid: f423f0f5fcdadb646bd55a57984ac388,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f423f0f5fcdadb646bd55a57984ac388, type: 3}
