@@ -17,8 +17,16 @@ public class GameManager : Singleton<GameManager>
 
     public int playerScore = 0;
 
+    public enum MapGenerationType { Random, MapOfTheDay, CustomSeed };
+    public MapGenerationType mapType = MapGenerationType.Random;
+
+    public float musicVolume;
+    public float sfxVolume;
+
+
     protected override void Awake()
     {
+        LoadPreferences();
         base.Awake();
     }
 
@@ -31,8 +39,48 @@ public class GameManager : Singleton<GameManager>
     {
         for (int enemy = 0; enemy < numberToSpawn; enemy++)
         {
-           // EnemySpawnPoints randomSpawnPoint = enemySpawnPoints[Random.Range(0, enemySpawnPoints.Count)];
-           // randomSpawnPoint.SpawnRandomEnemy();
+            EnemySpawnPoints randomSpawnPoint = enemySpawnPoints[Random.Range(0, enemySpawnPoints.Count)];
+            randomSpawnPoint.SpawnRandomEnemy();
+        }
+    }
+
+    public void SavePreferences()
+    {
+        // Save Music Volume
+        PlayerPrefs.SetFloat("musicVolume", musicVolume);
+        PlayerPrefs.SetFloat("sfxVolume", sfxVolume);
+        // TODO: Test this out
+        PlayerPrefs.SetInt("mapType", (int) mapType);
+        PlayerPrefs.Save();
+    }
+
+    public void LoadPreferences()
+    {
+        if (PlayerPrefs.HasKey("musicVolume"))
+        {
+            musicVolume = PlayerPrefs.GetFloat("musicVolume");
+        }
+        else
+        {
+            musicVolume = 1.0f;
+        }
+
+        if (PlayerPrefs.HasKey("sfxVolume"))
+        {
+            sfxVolume = PlayerPrefs.GetFloat("sfxVolume");
+        }
+        else
+        {
+            sfxVolume = 1.0f;
+        }
+            
+        if (PlayerPrefs.HasKey("mapType"))
+        {
+            mapType = (MapGenerationType)PlayerPrefs.GetInt("mapType");
+        }
+        else
+        {
+            mapType = MapGenerationType.Random;
         }
     }
 }
