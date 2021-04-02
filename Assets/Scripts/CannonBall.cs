@@ -13,7 +13,16 @@ public class CannonBall : MonoBehaviour
         if (collision.gameObject.tag != "Bullet")
         {
             Attack attackData = new Attack(attacker, attackDamage);
-            collision.gameObject.SendMessage("TakeDamage", attackData, SendMessageOptions.RequireReceiver);
+
+            IAttackable[] attackables = collision.gameObject.GetComponents<IAttackable>();
+
+            foreach (IAttackable attackable in attackables)
+            {
+                attackable.OnAttacked(attackData);
+            }
+
+            //collision.gameObject.SendMessage("TakeDamage", attackData, SendMessageOptions.RequireReceiver);
+            
             // Destroy our cannon ball when it runs into another object.
             Destroy(this.gameObject);
         }
