@@ -22,6 +22,8 @@ public class GameManager : Singleton<GameManager>
 
     public List<ScoreData> HighScoreTable;
 
+    public bool isMultiplayer;
+
     public enum MapGenerationType { Random, MapOfTheDay, CustomSeed };
     public MapGenerationType mapType = MapGenerationType.Random;
 

@@ -17,7 +17,7 @@ public class Health : MonoBehaviour
             currentHealth = value;
             if (currentHealth <= 0)
             {
-                Die();
+                //Die(attackData);
             }
             if (currentHealth > maxHealth)
             {
@@ -40,12 +40,18 @@ public class Health : MonoBehaviour
         {
             PointScore.pointScore += 5;
             // PointScore.enemyPointScore += 5;
-            Die();
+            Die(attackData);
         }
     }
 
-    private void Die()
+    private void Die(Attack attackData)
     {
+        IKillable[] killables = GetComponents<IKillable>();
+        foreach (IKillable killable in killables)
+        {
+            killable.OnKilled(attackData);
+        }
+
         Destroy(this.gameObject);
     }
 }
