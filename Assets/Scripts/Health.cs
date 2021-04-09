@@ -3,9 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
+[RequireComponent(typeof(TankData))]
 public class Health : MonoBehaviour
 {
+    private TankData data;
     private int currentHealth = 5;
     public int maxHealth = 5;
 
@@ -24,6 +25,11 @@ public class Health : MonoBehaviour
                 currentHealth = maxHealth;
             }
         }
+    }
+
+    private void Start()
+    {
+        data = GetComponent<TankData>();
     }
 
     public Health(int MaxHealth)
@@ -46,12 +52,43 @@ public class Health : MonoBehaviour
 
     private void Die(Attack attackData)
     {
-        IKillable[] killables = GetComponents<IKillable>();
+        data.lives -= 1;
+
+        // Check for actual game-over
+        if (GameManager.Instance.isMultiplayer)
+        {
+            int livesRemaining =
+                GameManager.Instance.Players[0].GetComponent<TankData>().lives +
+                GameManager.Instance.Players[1].GetComponent<TankData>().lives;
+            if (livesRemaining <= 0)
+            {
+                GameManager.Instance.GameOver();
+            }
+        }
+        else
+        {
+            if (data.lives <= 0)
+            {
+                GameManager.Instance.GameOver();
+            }
+        }
+        
+        IKillable[] killables = GetComponentsInChildren<IKillable>();
         foreach (IKillable killable in killables)
         {
             killable.OnKilled(attackData);
         }
 
-        Destroy(this.gameObject);
+        if (data.lives > 0)
+        {
+
+            IRespawnable[] respawnables = GetComponentInChildren<IRespawnable>();
+
+            foreach (IRespawnable respawnable in respawnables)
+            {
+                respawnable.OnRespawn();
+            }
+        }
+        //Destroy(this.gameObject);
     }
 }

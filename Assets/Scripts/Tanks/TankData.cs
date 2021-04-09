@@ -8,4 +8,6 @@ public class TankData : MonoBehaviour
     public float turnSpeed = 30.0f;
     public int cannonBallDamage = 1;
     public float fireRate = 2.0f;
+    public int lives = 3;
+    public float respawnTime = 3.0f;
 }

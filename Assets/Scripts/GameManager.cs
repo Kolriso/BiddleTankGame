@@ -15,6 +15,8 @@ public class GameManager : Singleton<GameManager>
 
     public List<EnemySpawnPoints> enemySpawnPoints = new List<EnemySpawnPoints>();
 
+    public List<PlayerSpawnPoints> playerSpawnPoints = new List<PlayerSpawnPoints>();
+
     public int oldPlayerScore = 0;
 
     public int player1Score;
@@ -23,6 +25,8 @@ public class GameManager : Singleton<GameManager>
     public List<ScoreData> HighScoreTable;
 
     public bool isMultiplayer;
+
+   // public int[] lives = new int[2];
 
     public enum MapGenerationType { Random, MapOfTheDay, CustomSeed };
     public MapGenerationType mapType = MapGenerationType.Random;
@@ -39,6 +43,17 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
+        /*
+        lives[0] = 3;
+        if (isMultiplayer)
+        {
+            lives[1] = 3;
+        }
+        else
+        {
+            lives[1] = 0;
+        }
+        */
         SceneManager.LoadScene(1);
     }
 
@@ -46,9 +61,16 @@ public class GameManager : Singleton<GameManager>
     {
         for (int enemy = 0; enemy < numberToSpawn; enemy++)
         {
-            EnemySpawnPoints randomSpawnPoint = enemySpawnPoints[Random.Range(0, enemySpawnPoints.Count)];
+            EnemySpawnPoints randomSpawnPoint = enemySpawnPoints[UnityEngine.Random.Range(0, enemySpawnPoints.Count)];
             randomSpawnPoint.SpawnRandomEnemy();
         }
+    }
+
+    public void GameOver()
+    {
+        // TODO: Add the player scores to the high score table
+        // Move to the game over scene
+        SceneManager.LoadScene("GameOver");
     }
 
     public void SavePreferences()
