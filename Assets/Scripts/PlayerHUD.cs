@@ -26,7 +26,8 @@ public class PlayerHUD : MonoBehaviour, IKillable, IRespawnable
     // Start is called before the first frame update
     void Start()
     {
-        
+        //Attaches this playerhud to the game manager the moment it exists
+        GameManager.Instance.hud = this;
     }
 
     // Update is called once per frame

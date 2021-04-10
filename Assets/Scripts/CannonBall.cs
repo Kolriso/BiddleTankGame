@@ -7,6 +7,16 @@ public class CannonBall : MonoBehaviour
     public GameObject attacker;
     public int attackDamage;
 
+    //Call the attached Audiosource
+    private AudioSource audioSource;
+
+    private void Start()
+    {
+        //Attach audiosource to gameobjects audiosource
+        audioSource = GetComponent<AudioSource>();
+        audioSource.Play();
+    }
+
 
     private void OnCollisionEnter(Collision collision)
     {

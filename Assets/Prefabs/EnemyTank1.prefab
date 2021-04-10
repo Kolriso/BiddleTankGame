@@ -272,6 +272,7 @@ GameObject:
   - component: {fileID: -8942286449150448744}
   - component: {fileID: 81075195766896884}
   - component: {fileID: -331238878170093754}
+  - component: {fileID: 558113957508673230}
   m_Layer: 0
   m_Name: EnemyTank1
   m_TagString: Untagged
@@ -329,6 +330,8 @@ MonoBehaviour:
   turnSpeed: 30
   cannonBallDamage: 1
   fireRate: 2
+  lives: 3
+  respawnTime: 3
 --- !u!114 &5723319730611868659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -353,7 +356,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 789671634103489497}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 571208c05b1abf7469a7676cfd29682d, type: 3}
   m_Name: 
@@ -449,7 +452,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 851b0f01a8b1f964cb09ea5d39d0878e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clip: {fileID: 0}
+  clip: {fileID: 8300000, guid: a445d68ab3e00c6469cb754086acd0a2, type: 3}
 --- !u!114 &-331238878170093754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -462,6 +465,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e165edfa037573144bf4c847d5d93978, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &558113957508673230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 789671634103489497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b3ef989570699b48873aff20fa8fbc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 5
 --- !u!1 &789671634103489499
 GameObject:
   m_ObjectHideFlags: 0

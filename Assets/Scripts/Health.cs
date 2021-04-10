@@ -10,6 +10,9 @@ public class Health : MonoBehaviour
     private int currentHealth = 5;
     public int maxHealth = 5;
 
+    //Call the attached Audiosource
+    private AudioSource audioSource;
+
     public int CurrentHealth
     {
         get { return currentHealth;  }
@@ -30,6 +33,9 @@ public class Health : MonoBehaviour
     private void Start()
     {
         data = GetComponent<TankData>();
+        currentHealth = maxHealth;
+        //Attach audiosource to gameobjects audiosource
+        audioSource = GetComponent<AudioSource>();
     }
 
     public Health(int MaxHealth)
@@ -44,7 +50,9 @@ public class Health : MonoBehaviour
         // check to see if we died
         if (currentHealth <= 0)
         {
+            print("is my health 0?");
             PointScore.pointScore += 5;
+            GameManager.Instance.GameOver();
             // PointScore.enemyPointScore += 5;
             Die(attackData);
         }
@@ -52,7 +60,11 @@ public class Health : MonoBehaviour
 
     private void Die(Attack attackData)
     {
+        print("did I die?");
+        print(data.gameObject.name);
         data.lives -= 1;
+
+        audioSource.Play();
 
         // Check for actual game-over
         if (GameManager.Instance.isMultiplayer)
@@ -81,8 +93,7 @@ public class Health : MonoBehaviour
 
         if (data.lives > 0)
         {
-
-            IRespawnable[] respawnables = GetComponentInChildren<IRespawnable>();
+            IRespawnable[] respawnables = GetComponentsInChildren<IRespawnable>();
 
             foreach (IRespawnable respawnable in respawnables)
             {

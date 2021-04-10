@@ -26,6 +26,9 @@ public class GameManager : Singleton<GameManager>
 
     public bool isMultiplayer;
 
+    //Calls the player hudto activate on death
+    public PlayerHUD hud;
+
    // public int[] lives = new int[2];
 
     public enum MapGenerationType { Random, MapOfTheDay, CustomSeed };
@@ -57,6 +60,16 @@ public class GameManager : Singleton<GameManager>
         SceneManager.LoadScene(1);
     }
 
+    private void Update()
+    {
+
+        //If player is dead and there IS a hud
+        if(Players[0] == null && hud != null)
+        {
+            hud.gameOverScreen.SetActive(true);
+        }
+    }
+
     public void SpawnEnemies(int numberToSpawn)
     {
         for (int enemy = 0; enemy < numberToSpawn; enemy++)
@@ -69,6 +82,7 @@ public class GameManager : Singleton<GameManager>
     public void GameOver()
     {
         // TODO: Add the player scores to the high score table
+
         // Move to the game over scene
         SceneManager.LoadScene("GameOver");
     }

@@ -15,6 +15,17 @@ public class MainMenu : MonoBehaviour
 
     public enum MenuState { mainMenu, optionsMenu };
     public MenuState currentMenuState = MenuState.mainMenu;
+
+    //Call the attached Audiosource
+    private AudioSource audioSource;
+
+    private void Start()
+    {
+        //Attach audiosource to gameobjects audiosource
+        audioSource = GetComponent<AudioSource>();
+        audioSource.Play();
+    }
+
     public void OnQuitClicked()
     {
         Application.Quit();
