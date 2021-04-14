@@ -79,7 +79,7 @@ public class Health : MonoBehaviour
         }
         else
         {
-            if (data.lives <= 0)
+            if (GameManager.Instance.Players[0].GetComponent<TankData>().lives <= 0)
             {
                 GameManager.Instance.GameOver();
             }
@@ -91,7 +91,7 @@ public class Health : MonoBehaviour
             killable.OnKilled(attackData);
         }
 
-        if (data.lives > 0)
+        if (data.lives > 0 || (this.gameObject.GetComponent<FiniteStateMachine>() != null))
         {
             IRespawnable[] respawnables = GetComponentsInChildren<IRespawnable>();
 

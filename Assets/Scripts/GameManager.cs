@@ -64,10 +64,10 @@ public class GameManager : Singleton<GameManager>
     {
 
         //If player is dead and there IS a hud
-        if(Players[0] == null && hud != null)
-        {
-            hud.gameOverScreen.SetActive(true);
-        }
+        //if(Players[0] == null && hud != null)
+        //{
+            //hud.gameOverScreen.SetActive(true);
+        //}
     }
 
     public void SpawnEnemies(int numberToSpawn)
