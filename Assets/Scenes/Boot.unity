@@ -128,6 +128,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6851874581801182212, guid: f423f0f5fcdadb646bd55a57984ac388,
+        type: 3}
+      propertyPath: EnemyAIPrefabs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6851874581801182212, guid: f423f0f5fcdadb646bd55a57984ac388,
+        type: 3}
+      propertyPath: EnemyAIPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 789671634103489497, guid: 6d88d718228265043b8078410937cecf,
+        type: 3}
     - target: {fileID: 6851874581801182213, guid: f423f0f5fcdadb646bd55a57984ac388,
         type: 3}
       propertyPath: m_RootOrder
