@@ -313,6 +313,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -6542151660139087148, guid: 0771a49fe291d9945b8149fae84f9f36,
+        type: 3}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 1880449282}
     - target: {fileID: 789671634103489497, guid: 0771a49fe291d9945b8149fae84f9f36,
         type: 3}
       propertyPath: m_Name
@@ -387,6 +392,16 @@ PrefabInstance:
       propertyPath: playerCamera
       value: 
       objectReference: {fileID: 1224211892}
+    - target: {fileID: 789671633992027253, guid: 0771a49fe291d9945b8149fae84f9f36,
+        type: 3}
+      propertyPath: m_NormalizedViewPortRect.x
+      value: -0.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 789671633992027253, guid: 0771a49fe291d9945b8149fae84f9f36,
+        type: 3}
+      propertyPath: m_NormalizedViewPortRect.width
+      value: 2.11
+      objectReference: {fileID: 0}
     - target: {fileID: 789671633992027530, guid: 0771a49fe291d9945b8149fae84f9f36,
         type: 3}
       propertyPath: m_Enabled
@@ -460,6 +475,12 @@ Camera:
     type: 3}
   m_PrefabInstance: {fileID: 1224211891}
   m_PrefabAsset: {fileID: 0}
+--- !u!20 &1880449282 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 789671633992027253, guid: 0771a49fe291d9945b8149fae84f9f36,
+    type: 3}
+  m_PrefabInstance: {fileID: 384158976}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2114430957
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -467,6 +488,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6851874581801182212, guid: f423f0f5fcdadb646bd55a57984ac388,
+        type: 3}
+      propertyPath: isMultiplayer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6851874581801182213, guid: f423f0f5fcdadb646bd55a57984ac388,
         type: 3}
       propertyPath: m_RootOrder
@@ -526,6 +552,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GameManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 6851874581801182215, guid: f423f0f5fcdadb646bd55a57984ac388,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f423f0f5fcdadb646bd55a57984ac388, type: 3}

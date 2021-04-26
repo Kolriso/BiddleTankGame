@@ -130,6 +130,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6851874581801182212, guid: f423f0f5fcdadb646bd55a57984ac388,
         type: 3}
+      propertyPath: isMultiplayer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6851874581801182212, guid: f423f0f5fcdadb646bd55a57984ac388,
+        type: 3}
       propertyPath: EnemyAIPrefabs.Array.size
       value: 1
       objectReference: {fileID: 0}

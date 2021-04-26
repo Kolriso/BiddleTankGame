@@ -52,7 +52,6 @@ public class Health : MonoBehaviour
         {
             print("is my health 0?");
             PointScore.pointScore += 5;
-            GameManager.Instance.GameOver();
             // PointScore.enemyPointScore += 5;
             Die(attackData);
         }
@@ -100,6 +99,6 @@ public class Health : MonoBehaviour
                 respawnable.OnRespawn();
             }
         }
-        //Destroy(this.gameObject);
+        Destroy(this.gameObject);
     }
 }

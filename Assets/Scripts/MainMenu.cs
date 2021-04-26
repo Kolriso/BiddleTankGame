@@ -43,6 +43,10 @@ public class MainMenu : MonoBehaviour
         ChangeState(MenuState.optionsMenu);
     }
 
+    public void SwapMultiplayer()
+    {
+        GameManager.Instance.isMultiplayer = !GameManager.Instance.isMultiplayer;
+    }
     public void ChangeState(MenuState nextState)
     {
         currentMenuState = nextState;

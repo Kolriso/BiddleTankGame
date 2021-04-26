@@ -8,6 +8,7 @@ public class CameraController : MonoBehaviour
 
     private void Start()
     {
+
         if (GameManager.Instance.Players[0] == null)
         {
             GameManager.Instance.Players[0] = this.gameObject;
@@ -17,6 +18,10 @@ public class CameraController : MonoBehaviour
         {
             GameManager.Instance.Players[1] = this.gameObject;
             this.gameObject.name = "Player 2";
+            if(!GameManager.Instance.isMultiplayer)
+            {
+                this.gameObject.SetActive(false);
+            }
         }
 
         // Check to see if the game is multiplayer
