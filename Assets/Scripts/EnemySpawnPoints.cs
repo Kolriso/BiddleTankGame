@@ -6,7 +6,7 @@ public class EnemySpawnPoints : MonoBehaviour
 {
     private void Awake()
     {
-        // GameManager.Instance.enemySpawnPoints.Add(this);
+        GameManager.Instance.enemySpawnPoints.Add(this);
     }
 
     private void OnDestroy()
@@ -30,5 +30,43 @@ public class EnemySpawnPoints : MonoBehaviour
         GameObject spawnedEnemy = Instantiate(prefabToSpawn, transform.position, Quaternion.identity);
         // Example of how you could set personality randomly at spawn time.
         // spawnedEnemy.AiController.Personality = PersonalityType.Cowardly;
+    }
+
+    public void SpawnEnemy(int enemyToSpawn)
+    {
+        GameObject prefabToSpawn = GameManager.Instance.EnemyAIPrefabs[Random.Range(0, GameManager.Instance.EnemyAIPrefabs.Length)];
+        GameObject spawnedEnemy = Instantiate(prefabToSpawn, transform.position, Quaternion.identity);
+       
+        if (spawnedEnemy == null)
+        {
+            return;
+        }
+
+        FiniteStateMachine FSMtoSet = spawnedEnemy.GetComponent<FiniteStateMachine>();
+
+        if (FSMtoSet != null)
+        {
+            if (enemyToSpawn == 0)
+            {
+                FSMtoSet.personality = FiniteStateMachine.EnemyPersonality.Guard;
+            }
+            else if (enemyToSpawn == 1)
+            {
+                FSMtoSet.personality = FiniteStateMachine.EnemyPersonality.Cowardly;
+            }
+            else if (enemyToSpawn == 2)
+            {
+                FSMtoSet.personality = FiniteStateMachine.EnemyPersonality.Aggressive;
+            }
+            else if (enemyToSpawn == 3)
+            {
+                FSMtoSet.personality = FiniteStateMachine.EnemyPersonality.Wanderer;
+            }
+            else
+            {
+                Debug.Log("There are only four personalities");
+                FSMtoSet.personality = FiniteStateMachine.EnemyPersonality.Guard;
+            }
+        }
     }
 }

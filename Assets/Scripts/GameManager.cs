@@ -75,7 +75,8 @@ public class GameManager : Singleton<GameManager>
         for (int enemy = 0; enemy < numberToSpawn; enemy++)
         {
             EnemySpawnPoints randomSpawnPoint = enemySpawnPoints[UnityEngine.Random.Range(0, enemySpawnPoints.Count)];
-            randomSpawnPoint.SpawnRandomEnemy();
+            //randomSpawnPoint.SpawnRandomEnemy();
+            randomSpawnPoint.SpawnEnemy(enemy);
         }
     }
 
